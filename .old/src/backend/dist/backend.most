@@ -1,0 +1,33 @@
+// Version: 1.0.0
+type ExternalBlob__671167343 = Blob;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type PlaybookId__333364029 = Nat;
+type Playbook__345822799 =
+  {
+    createdAt : Timestamp__301639476;
+    id : PlaybookId__333364029;
+    platformName : Text;
+    screenshot : ExternalBlob__671167343;
+    steps : [Step__483329305];
+    taskGoal : Text;
+    title : Text
+  };
+type Step__483329305 =
+  {
+    actionLabel : Text;
+    description : Text;
+    icon : Text;
+    stepNumber : Nat;
+    uiElement : ?Text
+  };
+type Timestamp__301639476 = Int;
+actor {
+  stable counter : {var value : Nat};
+  stable store :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Playbook__345822799]];
+      var elementIndex : Nat__490723111
+    }
+};

@@ -1,0 +1,82 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Timestamp = int;
+type Step = 
+ record {
+   actionLabel: text;
+   description: text;
+   icon: text;
+   stepNumber: nat;
+   uiElement: opt text;
+ };
+type PlaybookId = nat;
+type Playbook = 
+ record {
+   createdAt: Timestamp;
+   id: PlaybookId;
+   platformName: text;
+   screenshot: ExternalBlob;
+   steps: vec Step;
+   taskGoal: text;
+   title: text;
+ };
+type ExternalBlob = blob;
+type CreatePlaybookRequest = 
+ record {
+   platformName: text;
+   screenshot: ExternalBlob;
+   steps: vec Step;
+   taskGoal: text;
+   title: text;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  createPlaybook: (req: CreatePlaybookRequest) -> (PlaybookId);
+  detectPlatform: (screenshot: ExternalBlob) -> (text);
+  generatePlaybook: (screenshot: ExternalBlob, taskGoal: text, platformName:
+   text) -> (PlaybookId);
+  getPlaybook: (id: PlaybookId) -> (opt Playbook) query;
+  listPlaybooks: () -> (vec Playbook) query;
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+}

@@ -1,0 +1,23 @@
+{
+  "overview": "A walkthrough playbook builder that analyzes screenshots of any web application, identifies the platform, and generates beautiful visual step-by-step guides for any task you describe.",
+  "features": [
+    "Screenshot upload with drag-and-drop and paste support",
+    "AI-powered platform detection from uploaded images",
+    "Step-by-step playbook generation from a task goal description",
+    "Visual playbook display with numbered cards and icons per step",
+    "Save playbooks with unique shareable links",
+    "Playbook library showing all generated guides"
+  ],
+  "category": "productivity",
+  "tags": [
+    "playbook",
+    "walkthrough",
+    "tutorial",
+    "screenshot",
+    "step-by-step",
+    "guide",
+    "ai",
+    "productivity"
+  ],
+  "last_updated": "2026-05-05T05:52:21.837Z"
+}
